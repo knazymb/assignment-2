@@ -61,6 +61,7 @@ public class Benchmark {
                 }
 
                 array.resetMetrics();
+
                 long start = System.nanoTime();
 
                 for (int index : indices) {
@@ -73,6 +74,7 @@ public class Benchmark {
                 arrayAccesses += array.getAccesses();
 
                 list.resetMetrics();
+
                 start = System.nanoTime();
 
                 for (int index : indices) {
@@ -88,8 +90,11 @@ public class Benchmark {
             long averageArrayTime = arrayTime / REPETITIONS;
             long averageListTime = listTime / REPETITIONS;
 
-            long averageArrayAccesses = arrayAccesses / REPETITIONS;
-            long averageListAccesses = listAccesses / REPETITIONS;
+            long averageArrayAccesses =
+                    arrayAccesses / REPETITIONS;
+
+            long averageListAccesses =
+                    listAccesses / REPETITIONS;
 
             writeRow(
                     writer,
@@ -173,8 +178,11 @@ public class Benchmark {
                 listComparisons += list.getComparisons();
             }
 
-            long averageArrayTime = arrayTime / REPETITIONS;
-            long averageListTime = listTime / REPETITIONS;
+            long averageArrayTime =
+                    arrayTime / REPETITIONS;
+
+            long averageListTime =
+                    listTime / REPETITIONS;
 
             long averageArrayComparisons =
                     arrayComparisons / REPETITIONS;
@@ -321,6 +329,17 @@ public class Benchmark {
             listRemoveMovements += list.getMovements();
         }
 
+        String insertComplexity;
+        String removeComplexity;
+
+        if (position.equals("Beginning")) {
+            insertComplexity = "Theta(1)";
+            removeComplexity = "Theta(1)";
+        } else {
+            insertComplexity = "Theta(n)";
+            removeComplexity = "Theta(n)";
+        }
+
         writeRow(
                 writer,
                 "Workload 3",
@@ -340,7 +359,7 @@ public class Benchmark {
                 "insert-" + position,
                 listInsertTime / REPETITIONS,
                 listInsertMovements / REPETITIONS,
-                "Theta(n)"
+                insertComplexity
         );
 
         writeRow(
@@ -362,7 +381,7 @@ public class Benchmark {
                 "remove-" + position,
                 listRemoveTime / REPETITIONS,
                 listRemoveMovements / REPETITIONS,
-                "Theta(n)"
+                removeComplexity
         );
     }
 
